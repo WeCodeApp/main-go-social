@@ -1,0 +1,23 @@
+{
+  "environment": "development",
+  "friends_service_url": "localhost:50053",
+  "groups_service_url": "localhost:50054",
+  "jwt_secret": "your-jwt-secret",
+  "log_level": "info",
+  "port": "8000",
+  "posts_service_url": "localhost:50052",
+  "users_service_url": "localhost:50051",
+  "app_url": "http://localhost:8080",
+  "oauth": {
+    "google": {
+      "client_id": "your-google-client-id",
+      "client_secret": "your-google-client-secret",
+      "redirect_url": "http://localhost:8000/api/v1/auth/google/callback"
+    },
+    "microsoft": {
+      "client_id": "your-microsoft-client-id",
+      "client_secret": "your-microsoft-client-secret",
+      "redirect_url": "http://localhost:8000/api/v1/auth/microsoft/callback"
+    }
+  }
+}

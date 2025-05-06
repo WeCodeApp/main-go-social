@@ -1,0 +1,39 @@
+# Post API Configuration
+
+# Server settings
+server:
+  port: 50052
+  host: 0.0.0.0
+
+# Database settings
+database:
+  driver: mysql
+  host: localhost
+  port: 3306
+  username: root
+  password: dbPassword
+  name: posts_db
+  charset: utf8mb4
+  parseTime: true
+  loc: Local
+  maxOpenConns: 10
+  maxIdleConns: 5
+  connMaxLifetime: 1h
+
+# JWT settings
+jwt:
+  secret: your-jwt-secret
+  expiration: 24h # 24 hours
+
+# Service URLs
+services:
+  usersServiceURL: localhost:50051
+  friendsServiceURL: localhost:50053
+  groupsServiceURL: localhost:50054
+
+# Logging settings
+logging:
+  level: info # debug, info, warn, error, fatal, panic
+  format: json # json or console
+  output: stdout # stdout or file
+  file: logs/posts-api.log # only used if output is file

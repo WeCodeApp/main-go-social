@@ -1,0 +1,44 @@
+# Users API Configuration
+
+# Server settings
+server:
+  port: 50051
+  host: 0.0.0.0
+
+# Database settings
+database:
+  driver: mysql
+  host: localhost
+  port: 3306
+  username: root
+  password: dbPassword
+  name: users_db
+  charset: utf8mb4
+  parseTime: true
+  loc: Local
+  maxOpenConns: 10
+  maxIdleConns: 5
+  connMaxLifetime: 1h
+
+# JWT settings
+jwt:
+  secret: your-jwt-secret
+  expiration: 24h # 24 hours
+
+# OAuth settings
+oauth:
+  google:
+    clientID: your-google-client-id
+    clientSecret: your-google-client-secret
+    redirectURL: http://localhost:8000/api/v1/auth/google/callback
+  microsoft:
+    clientID: your-microsoft-client-id
+    clientSecret: your-microsoft-client-secret
+    redirectURL: http://localhost:8000/api/v1/auth/microsoft/callback
+
+# Logging settings
+logging:
+  level: info # debug, info, warn, error, fatal, panic
+  format: json # json or console
+  output: stdout # stdout or file
+  file: logs/users-api.log # only used if output is file

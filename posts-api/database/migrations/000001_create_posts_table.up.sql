@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS posts (
+    id VARCHAR(36) PRIMARY KEY,
+    author_id VARCHAR(36) NOT NULL,
+    author_name VARCHAR(255) NOT NULL,
+    author_avatar VARCHAR(255),
+    content TEXT NOT NULL,
+    visibility ENUM('public', 'private') NOT NULL DEFAULT 'public',
+    group_id VARCHAR(36),
+    group_name VARCHAR(255),
+    media TEXT,
+    likes_count INT NOT NULL DEFAULT 0,
+    comments_count INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    INDEX idx_posts_author_id (author_id),
+    INDEX idx_posts_group_id (group_id),
+    INDEX idx_posts_visibility (visibility),
+    INDEX idx_posts_deleted_at (deleted_at)
+);

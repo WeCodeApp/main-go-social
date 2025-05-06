@@ -1,0 +1,1706 @@
+basePath: /api/v1
+definitions:
+  models.AuthRequest:
+    properties:
+      access_token:
+        example: ya29.a0AfB_byC...
+        type: string
+      provider:
+        enum:
+        - google
+        - microsoft
+        example: google
+        type: string
+    required:
+    - access_token
+    - provider
+    type: object
+  models.AuthResponse:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        type: string
+      user_id:
+        example: user123
+        type: string
+    type: object
+  models.Comment:
+    properties:
+      author_avatar:
+        example: https://example.com/avatar.jpg
+        type: string
+      author_id:
+        example: user123
+        type: string
+      author_name:
+        example: John Doe
+        type: string
+      comment_id:
+        example: comment123
+        type: string
+      content:
+        example: This is a comment
+        type: string
+      created_at:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+      post_id:
+        example: post123
+        type: string
+      updated_at:
+        example: "2023-01-02T12:00:00Z"
+        type: string
+    type: object
+  models.CommentCreateRequest:
+    properties:
+      content:
+        example: This is a comment
+        type: string
+    required:
+    - content
+    type: object
+  models.CommentsResponse:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      page:
+        example: 1
+        type: integer
+      total_count:
+        example: 42
+        type: integer
+      total_pages:
+        example: 5
+        type: integer
+    type: object
+  models.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  models.Friend:
+    properties:
+      avatar:
+        example: https://example.com/avatar.jpg
+        type: string
+      email:
+        example: jane.doe@example.com
+        type: string
+      friends_since:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+      name:
+        example: Jane Doe
+        type: string
+      user_id:
+        example: user456
+        type: string
+    type: object
+  models.FriendRequest:
+    properties:
+      friend_id:
+        example: user456
+        type: string
+    required:
+    - friend_id
+    type: object
+  models.FriendRequestDetails:
+    properties:
+      created_at:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+      receiver_avatar:
+        example: https://example.com/avatar2.jpg
+        type: string
+      receiver_id:
+        example: user456
+        type: string
+      receiver_name:
+        example: Jane Doe
+        type: string
+      request_id:
+        example: req123
+        type: string
+      sender_avatar:
+        example: https://example.com/avatar.jpg
+        type: string
+      sender_id:
+        example: user123
+        type: string
+      sender_name:
+        example: John Doe
+        type: string
+      status:
+        example: pending
+        type: string
+      updated_at:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+    type: object
+  models.FriendRequestsResponse:
+    properties:
+      page:
+        example: 1
+        type: integer
+      requests:
+        items:
+          $ref: '#/definitions/models.FriendRequestDetails'
+        type: array
+      total_count:
+        example: 42
+        type: integer
+      total_pages:
+        example: 5
+        type: integer
+    type: object
+  models.FriendsResponse:
+    properties:
+      friends:
+        items:
+          $ref: '#/definitions/models.Friend'
+        type: array
+      page:
+        example: 1
+        type: integer
+      total_count:
+        example: 42
+        type: integer
+      total_pages:
+        example: 5
+        type: integer
+    type: object
+  models.Group:
+    properties:
+      avatar:
+        example: https://example.com/group-avatar.jpg
+        type: string
+      created_at:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+      creator_id:
+        example: user123
+        type: string
+      creator_name:
+        example: John Doe
+        type: string
+      description:
+        example: A group for tech enthusiasts
+        type: string
+      group_id:
+        example: group123
+        type: string
+      members_count:
+        example: 42
+        type: integer
+      name:
+        example: Tech Enthusiasts
+        type: string
+      updated_at:
+        example: "2023-01-02T12:00:00Z"
+        type: string
+    type: object
+  models.GroupCreateRequest:
+    properties:
+      avatar:
+        example: https://example.com/group-avatar.jpg
+        type: string
+      description:
+        example: A group for tech enthusiasts
+        type: string
+      name:
+        example: Tech Enthusiasts
+        type: string
+    required:
+    - name
+    type: object
+  models.GroupMember:
+    properties:
+      avatar:
+        example: https://example.com/avatar.jpg
+        type: string
+      joined_at:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+      name:
+        example: John Doe
+        type: string
+      role:
+        example: admin
+        type: string
+      user_id:
+        example: user123
+        type: string
+    type: object
+  models.GroupMembersResponse:
+    properties:
+      members:
+        items:
+          $ref: '#/definitions/models.GroupMember'
+        type: array
+      page:
+        example: 1
+        type: integer
+      total_count:
+        example: 42
+        type: integer
+      total_pages:
+        example: 5
+        type: integer
+    type: object
+  models.GroupPostRequest:
+    properties:
+      content:
+        example: This is a post in the group
+        type: string
+      media:
+        example:
+        - '["https://example.com/image1.jpg"]'
+        items:
+          type: string
+        type: array
+    required:
+    - content
+    type: object
+  models.GroupUpdateRequest:
+    properties:
+      avatar:
+        example: https://example.com/updated-group-avatar.jpg
+        type: string
+      description:
+        example: An updated group for tech enthusiasts
+        type: string
+      name:
+        example: Tech Enthusiasts Updated
+        type: string
+    type: object
+  models.GroupsResponse:
+    properties:
+      groups:
+        items:
+          $ref: '#/definitions/models.Group'
+        type: array
+      page:
+        example: 1
+        type: integer
+      total_count:
+        example: 42
+        type: integer
+      total_pages:
+        example: 5
+        type: integer
+    type: object
+  models.LikeResponse:
+    properties:
+      likes_count:
+        type: integer
+      success:
+        type: boolean
+    type: object
+  models.Post:
+    properties:
+      author_avatar:
+        example: https://example.com/avatar.jpg
+        type: string
+      author_id:
+        example: user123
+        type: string
+      author_name:
+        example: John Doe
+        type: string
+      comments_count:
+        example: 10
+        type: integer
+      content:
+        example: This is a post
+        type: string
+      created_at:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+      is_liked:
+        example: false
+        type: boolean
+      likes_count:
+        example: 42
+        type: integer
+      media:
+        example:
+        - '["https://example.com/image1.jpg"]'
+        items:
+          type: string
+        type: array
+      post_id:
+        example: post123
+        type: string
+      updated_at:
+        example: "2023-01-02T12:00:00Z"
+        type: string
+      visibility:
+        example: public
+        type: string
+    type: object
+  models.PostCreateRequest:
+    properties:
+      content:
+        example: This is a post
+        type: string
+      media:
+        example:
+        - '["https://example.com/image1.jpg"]'
+        items:
+          type: string
+        type: array
+      visibility:
+        enum:
+        - public
+        - private
+        example: public
+        type: string
+    required:
+    - content
+    - visibility
+    type: object
+  models.PostUpdateRequest:
+    properties:
+      content:
+        example: This is an updated post
+        type: string
+      media:
+        example:
+        - '["https://example.com/image2.jpg"]'
+        items:
+          type: string
+        type: array
+      visibility:
+        enum:
+        - public
+        - private
+        example: private
+        type: string
+    type: object
+  models.PostsResponse:
+    properties:
+      page:
+        example: 1
+        type: integer
+      posts:
+        items:
+          $ref: '#/definitions/models.Post'
+        type: array
+      total_count:
+        example: 42
+        type: integer
+      total_pages:
+        example: 5
+        type: integer
+    type: object
+  models.ProfileUpdateRequest:
+    properties:
+      avatar:
+        example: https://example.com/avatar.jpg
+        type: string
+      name:
+        example: John Doe
+        type: string
+    type: object
+  models.SuccessResponse:
+    properties:
+      success:
+        type: boolean
+    type: object
+  models.SuccessWithCountResponse:
+    properties:
+      members_count:
+        type: integer
+      success:
+        type: boolean
+    type: object
+  models.UserProfile:
+    properties:
+      avatar:
+        example: https://example.com/avatar.jpg
+        type: string
+      created_at:
+        example: "2023-01-01T12:00:00Z"
+        type: string
+      email:
+        example: john.doe@example.com
+        type: string
+      name:
+        example: John Doe
+        type: string
+      updated_at:
+        example: "2023-01-02T12:00:00Z"
+        type: string
+      user_id:
+        example: user123
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+    url: http://www.example.com/support
+  description: Gateway API for Social Media Application
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Social Media Gateway API
+  version: "1.0"
+paths:
+  /auth/google:
+    get:
+      description: Redirects the user to Google's OAuth login page
+      produces:
+      - application/json
+      responses:
+        "302":
+          description: Redirect to Google
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Initiate Google OAuth login
+      tags:
+      - auth
+  /auth/google/callback:
+    get:
+      description: Handles the callback from Google's OAuth login
+      parameters:
+      - description: State token for CSRF protection
+        in: query
+        name: state
+        required: true
+        type: string
+      - description: Authorization code
+        in: query
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User authenticated successfully
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Handle Google OAuth callback
+      tags:
+      - auth
+  /auth/microsoft:
+    get:
+      description: Redirects the user to Microsoft's OAuth login page
+      produces:
+      - application/json
+      responses:
+        "302":
+          description: Redirect to Microsoft
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Initiate Microsoft OAuth login
+      tags:
+      - auth
+  /auth/microsoft/callback:
+    get:
+      description: Handles the callback from Microsoft's OAuth login
+      parameters:
+      - description: State token for CSRF protection
+        in: query
+        name: state
+        required: true
+        type: string
+      - description: Authorization code
+        in: query
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User authenticated successfully
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Handle Microsoft OAuth callback
+      tags:
+      - auth
+  /auth/signout:
+    post:
+      description: Signs out the user by invalidating the token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User signed out successfully
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Sign out the user
+      tags:
+      - auth
+  /friends:
+    get:
+      description: Get friends with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of friends per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Friends list with pagination
+          schema:
+            $ref: '#/definitions/models.FriendsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get friends
+      tags:
+      - friends
+  /friends/{id}:
+    delete:
+      description: Remove a friend
+      parameters:
+      - description: Friend ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Friend removed successfully
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Friend not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove a friend
+      tags:
+      - friends
+  /friends/block/{id}:
+    delete:
+      description: Unblock a user
+      parameters:
+      - description: User ID to unblock
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User unblocked successfully
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Unblock a user
+      tags:
+      - friends
+    post:
+      description: Block a user
+      parameters:
+      - description: User ID to block
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User blocked successfully
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Block a user
+      tags:
+      - friends
+  /friends/requests:
+    get:
+      description: Get friend requests with pagination
+      parameters:
+      - default: pending
+        description: Filter requests by status
+        enum:
+        - pending
+        - accepted
+        - rejected
+        in: query
+        name: status
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of requests per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Friend requests with pagination
+          schema:
+            $ref: '#/definitions/models.FriendRequestsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get friend requests
+      tags:
+      - friends
+    post:
+      consumes:
+      - application/json
+      description: Send a friend request to another user
+      parameters:
+      - description: Friend request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.FriendRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Friend request sent successfully
+          schema:
+            $ref: '#/definitions/models.FriendRequestDetails'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Send a friend request
+      tags:
+      - friends
+  /friends/requests/{id}/accept:
+    put:
+      description: Accept a friend request
+      parameters:
+      - description: Request ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Friend request accepted successfully
+          schema:
+            $ref: '#/definitions/models.FriendRequestDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Request not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Accept a friend request
+      tags:
+      - friends
+  /friends/requests/{id}/reject:
+    put:
+      description: Reject a friend request
+      parameters:
+      - description: Request ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Friend request rejected successfully
+          schema:
+            $ref: '#/definitions/models.FriendRequestDetails'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Request not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Reject a friend request
+      tags:
+      - friends
+  /groups:
+    get:
+      description: Get groups with pagination and filtering
+      parameters:
+      - description: Search query
+        in: query
+        name: query
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of groups per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Groups
+          schema:
+            $ref: '#/definitions/models.GroupsResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get groups
+      tags:
+      - groups
+    post:
+      consumes:
+      - application/json
+      description: Create a new group
+      parameters:
+      - description: Group creation request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.GroupCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Group created successfully
+          schema:
+            $ref: '#/definitions/models.Group'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a group
+      tags:
+      - groups
+  /groups/{id}:
+    delete:
+      description: Delete a group by ID
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Group deleted successfully
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a group
+      tags:
+      - groups
+    get:
+      description: Get a group by ID
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Group
+          schema:
+            $ref: '#/definitions/models.Group'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get a group
+      tags:
+      - groups
+    put:
+      consumes:
+      - application/json
+      description: Update a group by ID
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update group request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.GroupUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Group updated successfully
+          schema:
+            $ref: '#/definitions/models.Group'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a group
+      tags:
+      - groups
+  /groups/{id}/members:
+    delete:
+      description: Leave a group
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Group left successfully
+          schema:
+            $ref: '#/definitions/models.SuccessWithCountResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Leave a group
+      tags:
+      - groups
+    get:
+      description: Get members of a group with pagination
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of members per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Group members with pagination
+          schema:
+            $ref: '#/definitions/models.GroupMembersResponse'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get group members
+      tags:
+      - groups
+    post:
+      description: Join a group
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Group joined successfully
+          schema:
+            $ref: '#/definitions/models.SuccessWithCountResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Join a group
+      tags:
+      - groups
+  /groups/{id}/posts:
+    get:
+      description: Get posts in a group with pagination
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of posts per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Group posts with pagination
+          schema:
+            $ref: '#/definitions/models.PostsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Not a member of the group
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get posts in a group
+      tags:
+      - groups
+    post:
+      consumes:
+      - application/json
+      description: Create a new post in a group
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Post content
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.GroupPostRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created post
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Not a member of the group
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Group not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a post in a group
+      tags:
+      - groups
+  /posts:
+    get:
+      description: Get posts with pagination and filtering
+      parameters:
+      - description: Filter posts by author ID
+        in: query
+        name: author_id
+        type: string
+      - description: Filter posts by group ID
+        in: query
+        name: group_id
+        type: string
+      - description: Filter posts by visibility
+        enum:
+        - public
+        - private
+        in: query
+        name: visibility
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of posts per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Posts
+          schema:
+            $ref: '#/definitions/models.PostsResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: Create a new post
+      parameters:
+      - description: Post creation request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Post created successfully
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a post
+      tags:
+      - posts
+  /posts/{id}:
+    delete:
+      description: Delete a post by ID
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Post deleted successfully
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Post not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a post
+      tags:
+      - posts
+    get:
+      description: Get a post by ID
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Post
+          schema:
+            $ref: '#/definitions/models.Post'
+        "404":
+          description: Post not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get a post
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: Update a post by ID
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Update post request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Post updated successfully
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Post not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a post
+      tags:
+      - posts
+  /posts/{id}/comments:
+    get:
+      description: Get comments for a post with pagination
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of comments per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Comments
+          schema:
+            $ref: '#/definitions/models.CommentsResponse'
+        "404":
+          description: Post not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get comments for a post
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: Add a comment to a post
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Comment request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Comment added successfully
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Post not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Add a comment to a post
+      tags:
+      - posts
+  /posts/{id}/comments/{commentId}:
+    delete:
+      description: Delete a comment from a post
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Comment ID
+        in: path
+        name: commentId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Comment deleted successfully
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Post or comment not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a comment
+      tags:
+      - posts
+  /posts/{id}/like:
+    delete:
+      description: Unlike a post
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Post unliked successfully
+          schema:
+            $ref: '#/definitions/models.LikeResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Post not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Unlike a post
+      tags:
+      - posts
+    post:
+      description: Like a post
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Post liked successfully
+          schema:
+            $ref: '#/definitions/models.LikeResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Post not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Like a post
+      tags:
+      - posts
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login a user with OAuth provider
+      parameters:
+      - description: Login request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User logged in successfully
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Login a user
+      tags:
+      - users
+  /users/me:
+    get:
+      description: Get the profile of the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User profile
+          schema:
+            $ref: '#/definitions/models.UserProfile'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user profile
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update the profile of the authenticated user
+      parameters:
+      - description: Update profile request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProfileUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User profile updated successfully
+          schema:
+            $ref: '#/definitions/models.UserProfile'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user profile
+      tags:
+      - users
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with OAuth provider
+      parameters:
+      - description: Registration request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User registered successfully
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Register a new user
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    description: Enter 'Bearer ' followed by your token
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

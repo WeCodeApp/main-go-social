@@ -1,0 +1,326 @@
+syntax = "proto3";
+
+package groups;
+
+option go_package = "common/proto/groups";
+
+// GroupService provides group-related operations
+service GroupService {
+  // CreateGroup creates a new group
+  rpc CreateGroup(CreateGroupRequest) returns (GroupResponse);
+  
+  // GetGroup retrieves a group by ID
+  rpc GetGroup(GetGroupRequest) returns (GroupResponse);
+  
+  // GetGroups retrieves groups with pagination and filtering
+  rpc GetGroups(GetGroupsRequest) returns (GetGroupsResponse);
+  
+  // UpdateGroup updates a group
+  rpc UpdateGroup(UpdateGroupRequest) returns (GroupResponse);
+  
+  // DeleteGroup deletes a group
+  rpc DeleteGroup(DeleteGroupRequest) returns (DeleteGroupResponse);
+  
+  // JoinGroup adds a user to a group
+  rpc JoinGroup(JoinGroupRequest) returns (JoinGroupResponse);
+  
+  // LeaveGroup removes a user from a group
+  rpc LeaveGroup(LeaveGroupRequest) returns (LeaveGroupResponse);
+  
+  // GetGroupMembers retrieves members of a group
+  rpc GetGroupMembers(GetGroupMembersRequest) returns (GetGroupMembersResponse);
+  
+  // CreateGroupPost creates a post in a group
+  rpc CreateGroupPost(CreateGroupPostRequest) returns (GroupPostResponse);
+  
+  // GetGroupPosts retrieves posts in a group
+  rpc GetGroupPosts(GetGroupPostsRequest) returns (GetGroupPostsResponse);
+}
+
+// CreateGroupRequest is the request for creating a new group
+message CreateGroupRequest {
+  // UserId is the ID of the user creating the group
+  string user_id = 1;
+  
+  // Name is the name of the group
+  string name = 2;
+  
+  // Description is the description of the group
+  string description = 3;
+  
+  // Avatar is the URL to the group's avatar
+  string avatar = 4;
+}
+
+// GetGroupRequest is the request for retrieving a group
+message GetGroupRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // UserId is the ID of the user making the request (optional)
+  string user_id = 2;
+}
+
+// GetGroupsRequest is the request for retrieving groups
+message GetGroupsRequest {
+  // UserId is the ID of the user making the request (optional)
+  string user_id = 1;
+  
+  // Query is the search query (optional)
+  string query = 2;
+  
+  // Page is the page number for pagination
+  int32 page = 3;
+  
+  // Limit is the number of groups per page
+  int32 limit = 4;
+}
+
+// UpdateGroupRequest is the request for updating a group
+message UpdateGroupRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // UserId is the ID of the user updating the group
+  string user_id = 2;
+  
+  // Name is the updated name of the group (optional)
+  string name = 3;
+  
+  // Description is the updated description of the group (optional)
+  string description = 4;
+  
+  // Avatar is the updated URL to the group's avatar (optional)
+  string avatar = 5;
+}
+
+// DeleteGroupRequest is the request for deleting a group
+message DeleteGroupRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // UserId is the ID of the user deleting the group
+  string user_id = 2;
+}
+
+// JoinGroupRequest is the request for joining a group
+message JoinGroupRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // UserId is the ID of the user joining the group
+  string user_id = 2;
+}
+
+// LeaveGroupRequest is the request for leaving a group
+message LeaveGroupRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // UserId is the ID of the user leaving the group
+  string user_id = 2;
+}
+
+// GetGroupMembersRequest is the request for retrieving group members
+message GetGroupMembersRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // Page is the page number for pagination
+  int32 page = 2;
+  
+  // Limit is the number of members per page
+  int32 limit = 3;
+}
+
+// CreateGroupPostRequest is the request for creating a post in a group
+message CreateGroupPostRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // UserId is the ID of the user creating the post
+  string user_id = 2;
+  
+  // Content is the content of the post
+  string content = 3;
+  
+  // Media is an array of media URLs (optional)
+  repeated string media = 4;
+}
+
+// GetGroupPostsRequest is the request for retrieving posts in a group
+message GetGroupPostsRequest {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // UserId is the ID of the user making the request (optional)
+  string user_id = 2;
+  
+  // Page is the page number for pagination
+  int32 page = 3;
+  
+  // Limit is the number of posts per page
+  int32 limit = 4;
+}
+
+// GroupResponse is the response containing a group
+message GroupResponse {
+  // GroupId is the ID of the group
+  string group_id = 1;
+  
+  // Name is the name of the group
+  string name = 2;
+  
+  // Description is the description of the group
+  string description = 3;
+  
+  // Avatar is the URL to the group's avatar
+  string avatar = 4;
+  
+  // CreatorId is the ID of the user who created the group
+  string creator_id = 5;
+  
+  // CreatorName is the name of the user who created the group
+  string creator_name = 6;
+  
+  // MembersCount is the number of members in the group
+  int32 members_count = 7;
+  
+  // PostsCount is the number of posts in the group
+  int32 posts_count = 8;
+  
+  // IsMember indicates if the requesting user is a member of the group
+  bool is_member = 9;
+  
+  // CreatedAt is the timestamp when the group was created
+  string created_at = 10;
+  
+  // UpdatedAt is the timestamp when the group was last updated
+  string updated_at = 11;
+}
+
+// GetGroupsResponse is the response containing groups
+message GetGroupsResponse {
+  // Groups is an array of groups
+  repeated GroupResponse groups = 1;
+  
+  // TotalCount is the total number of groups
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}
+
+// DeleteGroupResponse is the response for deleting a group
+message DeleteGroupResponse {
+  // Success indicates if the group was successfully deleted
+  bool success = 1;
+}
+
+// JoinGroupResponse is the response for joining a group
+message JoinGroupResponse {
+  // Success indicates if the user successfully joined the group
+  bool success = 1;
+  
+  // MembersCount is the updated number of members in the group
+  int32 members_count = 2;
+}
+
+// LeaveGroupResponse is the response for leaving a group
+message LeaveGroupResponse {
+  // Success indicates if the user successfully left the group
+  bool success = 1;
+  
+  // MembersCount is the updated number of members in the group
+  int32 members_count = 2;
+}
+
+// GroupMemberResponse is the response containing a group member
+message GroupMemberResponse {
+  // UserId is the ID of the member
+  string user_id = 1;
+  
+  // Name is the name of the member
+  string name = 2;
+  
+  // Avatar is the avatar URL of the member
+  string avatar = 3;
+  
+  // Role is the role of the member in the group (creator, admin, member)
+  string role = 4;
+  
+  // JoinedAt is the timestamp when the member joined the group
+  string joined_at = 5;
+}
+
+// GetGroupMembersResponse is the response containing group members
+message GetGroupMembersResponse {
+  // Members is an array of group members
+  repeated GroupMemberResponse members = 1;
+  
+  // TotalCount is the total number of members
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}
+
+// GroupPostResponse is the response containing a group post
+message GroupPostResponse {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // GroupId is the ID of the group
+  string group_id = 2;
+  
+  // AuthorId is the ID of the user who created the post
+  string author_id = 3;
+  
+  // AuthorName is the name of the user who created the post
+  string author_name = 4;
+  
+  // AuthorAvatar is the avatar URL of the user who created the post
+  string author_avatar = 5;
+  
+  // Content is the content of the post
+  string content = 6;
+  
+  // Media is an array of media URLs
+  repeated string media = 7;
+  
+  // LikesCount is the number of likes on the post
+  int32 likes_count = 8;
+  
+  // CommentsCount is the number of comments on the post
+  int32 comments_count = 9;
+  
+  // IsLiked indicates if the requesting user has liked the post
+  bool is_liked = 10;
+  
+  // CreatedAt is the timestamp when the post was created
+  string created_at = 11;
+  
+  // UpdatedAt is the timestamp when the post was last updated
+  string updated_at = 12;
+}
+
+// GetGroupPostsResponse is the response containing group posts
+message GetGroupPostsResponse {
+  // Posts is an array of group posts
+  repeated GroupPostResponse posts = 1;
+  
+  // TotalCount is the total number of posts
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}

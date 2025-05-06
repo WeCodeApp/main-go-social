@@ -1,0 +1,296 @@
+syntax = "proto3";
+
+package posts;
+
+option go_package = "common/proto/posts";
+
+// PostService provides post-related operations
+service PostService {
+  // CreatePost creates a new post
+  rpc CreatePost(CreatePostRequest) returns (PostResponse);
+  
+  // GetPost retrieves a post by ID
+  rpc GetPost(GetPostRequest) returns (PostResponse);
+  
+  // GetPosts retrieves posts with pagination and filtering
+  rpc GetPosts(GetPostsRequest) returns (GetPostsResponse);
+  
+  // UpdatePost updates a post
+  rpc UpdatePost(UpdatePostRequest) returns (PostResponse);
+  
+  // DeletePost deletes a post
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse);
+  
+  // AddComment adds a comment to a post
+  rpc AddComment(AddCommentRequest) returns (CommentResponse);
+  
+  // GetComments retrieves comments for a post
+  rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
+  
+  // DeleteComment deletes a comment
+  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+  
+  // LikePost likes a post
+  rpc LikePost(LikePostRequest) returns (LikePostResponse);
+  
+  // UnlikePost unlikes a post
+  rpc UnlikePost(UnlikePostRequest) returns (UnlikePostResponse);
+}
+
+// CreatePostRequest is the request for creating a new post
+message CreatePostRequest {
+  // UserId is the ID of the user creating the post
+  string user_id = 1;
+  
+  // Content is the content of the post
+  string content = 2;
+  
+  // Visibility is the visibility of the post (public or private)
+  string visibility = 3;
+  
+  // GroupId is the ID of the group if the post is in a group (optional)
+  string group_id = 4;
+  
+  // Media is an array of media URLs (optional)
+  repeated string media = 5;
+}
+
+// GetPostRequest is the request for retrieving a post
+message GetPostRequest {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // UserId is the ID of the user making the request (optional)
+  string user_id = 2;
+}
+
+// GetPostsRequest is the request for retrieving posts
+message GetPostsRequest {
+  // UserId is the ID of the user making the request (optional)
+  string user_id = 1;
+  
+  // AuthorId is the ID of the user whose posts to retrieve (optional)
+  string author_id = 2;
+  
+  // GroupId is the ID of the group whose posts to retrieve (optional)
+  string group_id = 3;
+  
+  // Visibility is the visibility filter (optional)
+  string visibility = 4;
+  
+  // Page is the page number for pagination
+  int32 page = 5;
+  
+  // Limit is the number of posts per page
+  int32 limit = 6;
+}
+
+// UpdatePostRequest is the request for updating a post
+message UpdatePostRequest {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // UserId is the ID of the user updating the post
+  string user_id = 2;
+  
+  // Content is the updated content of the post
+  string content = 3;
+  
+  // Visibility is the updated visibility of the post (optional)
+  string visibility = 4;
+  
+  // Media is an array of updated media URLs (optional)
+  repeated string media = 5;
+}
+
+// DeletePostRequest is the request for deleting a post
+message DeletePostRequest {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // UserId is the ID of the user deleting the post
+  string user_id = 2;
+}
+
+// AddCommentRequest is the request for adding a comment to a post
+message AddCommentRequest {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // UserId is the ID of the user adding the comment
+  string user_id = 2;
+  
+  // Content is the content of the comment
+  string content = 3;
+}
+
+// GetCommentsRequest is the request for retrieving comments for a post
+message GetCommentsRequest {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // Page is the page number for pagination
+  int32 page = 2;
+  
+  // Limit is the number of comments per page
+  int32 limit = 3;
+}
+
+// DeleteCommentRequest is the request for deleting a comment
+message DeleteCommentRequest {
+  // CommentId is the ID of the comment
+  string comment_id = 1;
+  
+  // UserId is the ID of the user deleting the comment
+  string user_id = 2;
+  
+  // PostId is the ID of the post
+  string post_id = 3;
+}
+
+// LikePostRequest is the request for liking a post
+message LikePostRequest {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // UserId is the ID of the user liking the post
+  string user_id = 2;
+}
+
+// UnlikePostRequest is the request for unliking a post
+message UnlikePostRequest {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // UserId is the ID of the user unliking the post
+  string user_id = 2;
+}
+
+// PostResponse is the response containing a post
+message PostResponse {
+  // PostId is the ID of the post
+  string post_id = 1;
+  
+  // AuthorId is the ID of the user who created the post
+  string author_id = 2;
+  
+  // AuthorName is the name of the user who created the post
+  string author_name = 3;
+  
+  // AuthorAvatar is the avatar URL of the user who created the post
+  string author_avatar = 4;
+  
+  // Content is the content of the post
+  string content = 5;
+  
+  // Visibility is the visibility of the post
+  string visibility = 6;
+  
+  // GroupId is the ID of the group if the post is in a group
+  string group_id = 7;
+  
+  // GroupName is the name of the group if the post is in a group
+  string group_name = 8;
+  
+  // Media is an array of media URLs
+  repeated string media = 9;
+  
+  // LikesCount is the number of likes on the post
+  int32 likes_count = 10;
+  
+  // CommentsCount is the number of comments on the post
+  int32 comments_count = 11;
+  
+  // IsLiked indicates if the requesting user has liked the post
+  bool is_liked = 12;
+  
+  // CreatedAt is the timestamp when the post was created
+  string created_at = 13;
+  
+  // UpdatedAt is the timestamp when the post was last updated
+  string updated_at = 14;
+}
+
+// GetPostsResponse is the response containing posts
+message GetPostsResponse {
+  // Posts is an array of posts
+  repeated PostResponse posts = 1;
+  
+  // TotalCount is the total number of posts
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}
+
+// CommentResponse is the response containing a comment
+message CommentResponse {
+  // CommentId is the ID of the comment
+  string comment_id = 1;
+  
+  // PostId is the ID of the post
+  string post_id = 2;
+  
+  // AuthorId is the ID of the user who created the comment
+  string author_id = 3;
+  
+  // AuthorName is the name of the user who created the comment
+  string author_name = 4;
+  
+  // AuthorAvatar is the avatar URL of the user who created the comment
+  string author_avatar = 5;
+  
+  // Content is the content of the comment
+  string content = 6;
+  
+  // CreatedAt is the timestamp when the comment was created
+  string created_at = 7;
+}
+
+// GetCommentsResponse is the response containing comments
+message GetCommentsResponse {
+  // Comments is an array of comments
+  repeated CommentResponse comments = 1;
+  
+  // TotalCount is the total number of comments
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}
+
+// DeletePostResponse is the response for deleting a post
+message DeletePostResponse {
+  // Success indicates if the post was successfully deleted
+  bool success = 1;
+}
+
+// DeleteCommentResponse is the response for deleting a comment
+message DeleteCommentResponse {
+  // Success indicates if the comment was successfully deleted
+  bool success = 1;
+}
+
+// LikePostResponse is the response for liking a post
+message LikePostResponse {
+  // Success indicates if the post was successfully liked
+  bool success = 1;
+  
+  // LikesCount is the updated number of likes on the post
+  int32 likes_count = 2;
+}
+
+// UnlikePostResponse is the response for unliking a post
+message UnlikePostResponse {
+  // Success indicates if the post was successfully unliked
+  bool success = 1;
+  
+  // LikesCount is the updated number of likes on the post
+  int32 likes_count = 2;
+}

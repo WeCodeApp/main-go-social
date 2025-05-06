@@ -1,0 +1,281 @@
+syntax = "proto3";
+
+package friends;
+
+option go_package = "common/proto/friends";
+
+// FriendService provides friend-related operations
+service FriendService {
+  // SendFriendRequest sends a friend request to another user
+  rpc SendFriendRequest(SendFriendRequestRequest) returns (FriendRequestResponse);
+  
+  // GetFriendRequests retrieves friend requests for a user
+  rpc GetFriendRequests(GetFriendRequestsRequest) returns (GetFriendRequestsResponse);
+  
+  // AcceptFriendRequest accepts a friend request
+  rpc AcceptFriendRequest(AcceptFriendRequestRequest) returns (FriendRequestResponse);
+  
+  // RejectFriendRequest rejects a friend request
+  rpc RejectFriendRequest(RejectFriendRequestRequest) returns (FriendRequestResponse);
+  
+  // GetFriends retrieves friends for a user
+  rpc GetFriends(GetFriendsRequest) returns (GetFriendsResponse);
+  
+  // RemoveFriend removes a friend
+  rpc RemoveFriend(RemoveFriendRequest) returns (RemoveFriendResponse);
+  
+  // BlockUser blocks a user
+  rpc BlockUser(BlockUserRequest) returns (BlockUserResponse);
+  
+  // UnblockUser unblocks a user
+  rpc UnblockUser(UnblockUserRequest) returns (UnblockUserResponse);
+  
+  // GetBlockedUsers retrieves blocked users for a user
+  rpc GetBlockedUsers(GetBlockedUsersRequest) returns (GetBlockedUsersResponse);
+  
+  // CheckFriendship checks if two users are friends
+  rpc CheckFriendship(CheckFriendshipRequest) returns (CheckFriendshipResponse);
+}
+
+// SendFriendRequestRequest is the request for sending a friend request
+message SendFriendRequestRequest {
+  // UserId is the ID of the user sending the request
+  string user_id = 1;
+  
+  // FriendId is the ID of the user to send the request to
+  string friend_id = 2;
+}
+
+// GetFriendRequestsRequest is the request for retrieving friend requests
+message GetFriendRequestsRequest {
+  // UserId is the ID of the user
+  string user_id = 1;
+  
+  // Status is the status of the requests to retrieve (pending, accepted, rejected)
+  string status = 2;
+  
+  // Page is the page number for pagination
+  int32 page = 3;
+  
+  // Limit is the number of requests per page
+  int32 limit = 4;
+}
+
+// AcceptFriendRequestRequest is the request for accepting a friend request
+message AcceptFriendRequestRequest {
+  // RequestId is the ID of the friend request
+  string request_id = 1;
+  
+  // UserId is the ID of the user accepting the request
+  string user_id = 2;
+}
+
+// RejectFriendRequestRequest is the request for rejecting a friend request
+message RejectFriendRequestRequest {
+  // RequestId is the ID of the friend request
+  string request_id = 1;
+  
+  // UserId is the ID of the user rejecting the request
+  string user_id = 2;
+}
+
+// GetFriendsRequest is the request for retrieving friends
+message GetFriendsRequest {
+  // UserId is the ID of the user
+  string user_id = 1;
+  
+  // Page is the page number for pagination
+  int32 page = 2;
+  
+  // Limit is the number of friends per page
+  int32 limit = 3;
+}
+
+// RemoveFriendRequest is the request for removing a friend
+message RemoveFriendRequest {
+  // UserId is the ID of the user
+  string user_id = 1;
+  
+  // FriendId is the ID of the friend to remove
+  string friend_id = 2;
+}
+
+// BlockUserRequest is the request for blocking a user
+message BlockUserRequest {
+  // UserId is the ID of the user
+  string user_id = 1;
+  
+  // BlockedUserId is the ID of the user to block
+  string blocked_user_id = 2;
+}
+
+// UnblockUserRequest is the request for unblocking a user
+message UnblockUserRequest {
+  // UserId is the ID of the user
+  string user_id = 1;
+  
+  // BlockedUserId is the ID of the user to unblock
+  string blocked_user_id = 2;
+}
+
+// GetBlockedUsersRequest is the request for retrieving blocked users
+message GetBlockedUsersRequest {
+  // UserId is the ID of the user
+  string user_id = 1;
+  
+  // Page is the page number for pagination
+  int32 page = 2;
+  
+  // Limit is the number of blocked users per page
+  int32 limit = 3;
+}
+
+// CheckFriendshipRequest is the request for checking if two users are friends
+message CheckFriendshipRequest {
+  // UserId is the ID of the first user
+  string user_id = 1;
+  
+  // FriendId is the ID of the second user
+  string friend_id = 2;
+}
+
+// FriendRequestResponse is the response containing a friend request
+message FriendRequestResponse {
+  // RequestId is the ID of the friend request
+  string request_id = 1;
+  
+  // SenderId is the ID of the user who sent the request
+  string sender_id = 2;
+  
+  // SenderName is the name of the user who sent the request
+  string sender_name = 3;
+  
+  // SenderAvatar is the avatar URL of the user who sent the request
+  string sender_avatar = 4;
+  
+  // ReceiverId is the ID of the user who received the request
+  string receiver_id = 5;
+  
+  // ReceiverName is the name of the user who received the request
+  string receiver_name = 6;
+  
+  // ReceiverAvatar is the avatar URL of the user who received the request
+  string receiver_avatar = 7;
+  
+  // Status is the status of the request (pending, accepted, rejected)
+  string status = 8;
+  
+  // CreatedAt is the timestamp when the request was created
+  string created_at = 9;
+  
+  // UpdatedAt is the timestamp when the request was last updated
+  string updated_at = 10;
+}
+
+// GetFriendRequestsResponse is the response containing friend requests
+message GetFriendRequestsResponse {
+  // Requests is an array of friend requests
+  repeated FriendRequestResponse requests = 1;
+  
+  // TotalCount is the total number of friend requests
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}
+
+// FriendResponse is the response containing a friend
+message FriendResponse {
+  // UserId is the ID of the friend
+  string user_id = 1;
+  
+  // Name is the name of the friend
+  string name = 2;
+  
+  // Avatar is the avatar URL of the friend
+  string avatar = 3;
+  
+  // Email is the email of the friend
+  string email = 4;
+  
+  // FriendsSince is the timestamp when the friendship was created
+  string friends_since = 5;
+}
+
+// GetFriendsResponse is the response containing friends
+message GetFriendsResponse {
+  // Friends is an array of friends
+  repeated FriendResponse friends = 1;
+  
+  // TotalCount is the total number of friends
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}
+
+// RemoveFriendResponse is the response for removing a friend
+message RemoveFriendResponse {
+  // Success indicates if the friend was successfully removed
+  bool success = 1;
+}
+
+// BlockUserResponse is the response for blocking a user
+message BlockUserResponse {
+  // Success indicates if the user was successfully blocked
+  bool success = 1;
+}
+
+// UnblockUserResponse is the response for unblocking a user
+message UnblockUserResponse {
+  // Success indicates if the user was successfully unblocked
+  bool success = 1;
+}
+
+// BlockedUserResponse is the response containing a blocked user
+message BlockedUserResponse {
+  // UserId is the ID of the blocked user
+  string user_id = 1;
+  
+  // Name is the name of the blocked user
+  string name = 2;
+  
+  // Avatar is the avatar URL of the blocked user
+  string avatar = 3;
+  
+  // BlockedAt is the timestamp when the user was blocked
+  string blocked_at = 4;
+}
+
+// GetBlockedUsersResponse is the response containing blocked users
+message GetBlockedUsersResponse {
+  // BlockedUsers is an array of blocked users
+  repeated BlockedUserResponse blocked_users = 1;
+  
+  // TotalCount is the total number of blocked users
+  int32 total_count = 2;
+  
+  // Page is the current page number
+  int32 page = 3;
+  
+  // TotalPages is the total number of pages
+  int32 total_pages = 4;
+}
+
+// CheckFriendshipResponse is the response for checking if two users are friends
+message CheckFriendshipResponse {
+  // AreFriends indicates if the users are friends
+  bool are_friends = 1;
+  
+  // Status is the status of the friendship (none, pending, friends, blocked)
+  string status = 2;
+  
+  // RequestId is the ID of the friend request if status is pending
+  string request_id = 3;
+}

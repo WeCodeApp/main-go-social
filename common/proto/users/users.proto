@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package users;
+
+option go_package = "common/proto/users";
+
+// UserService provides user-related operations
+service UserService {
+  // Register registers a new user with OAuth provider
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+
+  // Login authenticates a user with OAuth provider
+  rpc Login(LoginRequest) returns (LoginResponse);
+
+  // GetProfile retrieves a user's profile
+  rpc GetProfile(GetProfileRequest) returns (ProfileResponse);
+
+  // UpdateProfile updates a user's profile
+  rpc UpdateProfile(UpdateProfileRequest) returns (ProfileResponse);
+
+  // GoogleLogin generates a Google OAuth URL with state token
+  rpc GoogleLogin(GoogleLoginRequest) returns (OAuthURLResponse);
+
+  // MicrosoftLogin generates a Microsoft OAuth URL with state token
+  rpc MicrosoftLogin(MicrosoftLoginRequest) returns (OAuthURLResponse);
+
+  // GoogleCallback handles the callback from Google OAuth
+  rpc GoogleCallback(OAuthCallbackRequest) returns (LoginResponse);
+
+  // MicrosoftCallback handles the callback from Microsoft OAuth
+  rpc MicrosoftCallback(OAuthCallbackRequest) returns (LoginResponse);
+
+  // ValidateStateToken validates the state token to prevent CSRF attacks
+  rpc ValidateStateToken(ValidateStateTokenRequest) returns (ValidateStateTokenResponse);
+
+  // Signout signs out the user
+  rpc Signout(SignoutRequest) returns (SignoutResponse);
+}
+
+// RegisterRequest is the request for registering a new user
+message RegisterRequest {
+  // Provider is the OAuth provider (google or microsoft)
+  string provider = 1;
+
+  // Token is the OAuth token
+  string token = 2;
+}
+
+// RegisterResponse is the response for registering a new user
+message RegisterResponse {
+  // UserId is the unique identifier for the user
+  string user_id = 1;
+
+  // AccessToken is the JWT token for authentication
+  string access_token = 2;
+}
+
+// LoginRequest is the request for logging in a user
+message LoginRequest {
+  // Provider is the OAuth provider (google or microsoft)
+  string provider = 1;
+
+  // Token is the OAuth token
+  string token = 2;
+}
+
+// LoginResponse is the response for logging in a user
+message LoginResponse {
+  // UserId is the unique identifier for the user
+  string user_id = 1;
+
+  // AccessToken is the JWT token for authentication
+  string access_token = 2;
+}
+
+// GetProfileRequest is the request for getting a user's profile
+message GetProfileRequest {
+  // UserId is the unique identifier for the user
+  string user_id = 1;
+}
+
+// UpdateProfileRequest is the request for updating a user's profile
+message UpdateProfileRequest {
+  // UserId is the unique identifier for the user
+  string user_id = 1;
+
+  // Name is the user's name
+  string name = 2;
+
+  // Avatar is the URL to the user's avatar
+  string avatar = 3;
+}
+
+// ProfileResponse is the response containing a user's profile
+message ProfileResponse {
+  // UserId is the unique identifier for the user
+  string user_id = 1;
+
+  // Name is the user's name
+  string name = 2;
+
+  // Email is the user's email
+  string email = 3;
+
+  // Avatar is the URL to the user's avatar
+  string avatar = 4;
+
+  // CreatedAt is the timestamp when the user was created
+  string created_at = 5;
+}
+
+// GoogleLoginRequest is the request for generating a Google OAuth URL
+message GoogleLoginRequest {
+  // RedirectURL is the URL to redirect to after authentication (optional)
+  string redirect_url = 1;
+}
+
+// MicrosoftLoginRequest is the request for generating a Microsoft OAuth URL
+message MicrosoftLoginRequest {
+  // RedirectURL is the URL to redirect to after authentication (optional)
+  string redirect_url = 1;
+}
+
+// OAuthURLResponse is the response containing an OAuth URL
+message OAuthURLResponse {
+  // URL is the OAuth URL to redirect the user to
+  string url = 1;
+
+  // State is the state token for CSRF protection
+  string state = 2;
+}
+
+// OAuthCallbackRequest is the request for handling an OAuth callback
+message OAuthCallbackRequest {
+  // State is the state token for CSRF protection
+  string state = 1;
+
+  // Code is the authorization code from the OAuth provider
+  string code = 2;
+}
+
+// ValidateStateTokenRequest is the request for validating a state token
+message ValidateStateTokenRequest {
+  // State is the state token to validate
+  string state = 1;
+}
+
+// ValidateStateTokenResponse is the response for validating a state token
+message ValidateStateTokenResponse {
+  // Valid indicates whether the state token is valid
+  bool valid = 1;
+}
+
+// SignoutRequest is the request for signing out a user
+message SignoutRequest {
+  // Token is the JWT token to invalidate
+  string token = 1;
+}
+
+// SignoutResponse is the response for signing out a user
+message SignoutResponse {
+  // Success indicates whether the signout was successful
+  bool success = 1;
+}
