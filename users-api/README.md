@@ -45,7 +45,7 @@ This is the Users API microservice for the social media application. It provides
 5. Run database migrations:
    ```bash
    # Using golang-migrate
-   migrate -path database/migrations -database "mysql://root:p@ssw0r@tcp(localhost:3306)/users_db" up
+   migrate -path database/migrations -database "mysql://root:your-db-password@tcp(localhost:3306)/users_db" up
    
    # Or manually
    mysql -u root -p users_db < database/migrations/000001_create_users_table.up.sql

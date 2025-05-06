@@ -35,7 +35,7 @@ CREATE DATABASE groups_db;
 
 ```bash
 # Using golang-migrate
-migrate -path database/migrations -database "mysql://root:dbPassword@tcp(localhost:3306)/groups_db" up
+migrate -path database/migrations -database "mysql://root:your-db-password@tcp(localhost:3306)/groups_db" up
 ```
 
 3. (Optional) Seed the database with sample data:

@@ -231,3 +231,14 @@ protoc --proto_path=./proto \
 ```aiignore
 swag init -g cmd/main.go
 ```
+
+## Setting ENV vars
+Change the following variables according to your spec
+```aiignore
+your-jwt-secret
+your-google-client-id
+your-google-client-secret
+your-microsoft-client-id
+your-microsoft-client-secret
+your-db-password
+```

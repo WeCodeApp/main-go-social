@@ -11,7 +11,7 @@ database:
   host: localhost
   port: 3306
   username: root
-  password: dbPassword
+  password: your-db-password
   name: friends_db
   charset: utf8mb4
   parseTime: true
